@@ -1,25 +1,29 @@
 #!/usr/bin/env sh
 
-# 发生错误时终止
+# abort on errors
 set -e
 
-# 构建
+# build
 npm run build
 
-# 进入构建文件夹
+# navigate into the build output directory
 cd dist
 
-# 如果你要部署到自定义域名
+# place .nojekyll to bypass Jekyll processing
+echo > .nojekyll
+
+# if you are deploying to a custom domain
 # echo 'www.example.com' > CNAME
 
 git init
+git checkout -B main
 git add -A
 git commit -m 'deploy'
 
-# 如果你要部署在 https://<USERNAME>.github.io
+# if you are deploying to https://<USERNAME>.github.io
 # git push -f git@github.com:<USERNAME>/<USERNAME>.github.io.git main
 
-# 如果你要部署在 https://<USERNAME>.github.io/<REPO>
-git push -f git@github.com:yuch3nchen/my-portfolio-2024.git master:gh-pages
+# if you are deploying to https://<USERNAME>.github.io/<REPO>
+git push -f https://github.com/yuch3nchen/my-portfolio-2024.git  main:gh-pages
 
 cd -
